@@ -33,7 +33,7 @@ function generatePassword(){
   // Count the number of groups of symbols that user has selected and store that value in a variable
   function countUserChoices(){
     var count_choices = 0;
-    for (i=0;i<choices.length-1;i++){
+    for (i=0;i<choices.length;i++){
       if (choices[i]){
         count_choices+=1;
       }
@@ -41,6 +41,7 @@ function generatePassword(){
     return count_choices;
   }
   var numberOfChoices = countUserChoices();
+  console.log(numberOfChoices);
 
   // Alert the user if they didn't select any group of elements
   if (numberOfChoices === 0){
