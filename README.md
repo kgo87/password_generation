@@ -11,27 +11,17 @@ The starter code (.html, .css and partially .js) was provided. The following mod
 Link to a live page: https://kgo87.github.io/password_generation/  
 
 # Project Summary
-The folder contains  *.html* and  *.css* files and supplemental images.
-## HTML code
-* Perdonalized website title
-* Navigation bar has links to can help to access different elements of the page
-* When click on *Resume* button, the user is redirected to a page with resume
-* Various semantic elements are used for better clarity
-* *Github* and *LinkedIn* buttons redirects to Github and LinkedIn pages respectively.
-* Screenshot of the part of the code is provided below:
-               
-![Screenshot](html_1.png)
+The folder contains  *.html* and  *.css*, modified *.js* files and supplemental screenshots.
+## JS code
+* At first I created lists of elements for every group of symbols and variables to store user selections (answers to prompt and confirm)
+![Screenshot](js1.png)
+* Then I implemented a functionality that selects (randomly) equal number of items from each of the user-selected groups of symbols. The purpose of this feature is to ensure that the the elements of each group is included in the password. 
+![Screenshot](js2.png)
+* The developed functionality is used to iterate over every user-selected group and select the calculated number of elements from each group, and combine it into an overall password. Assitionally, the elements from the user-selected groups are being added to the combined list of elements. For the odd password length, the last symbols for the password are being randonly selected from the combined group of elements
+![Screenshot](js3.png)
+* The very last step is shuffling all the items in the generated password       
+![Screenshot](js4.png)
 
-
-## CSS code
-* All methods include comments to describe what each method is doing
-* Order of the methods match the sequence in HTML code
-* Created variables for frequently used properties
-* Implemented animated functionality when the user hovers to the elements
-* Added functionality to display elements differently when the screen size changes
-* Screenshot of the part of the code is provided below:
-
-![Screenshot](css_1.png)
 
 # Finished product
 Here are several screenshots showing the functionality of the developed password generator.

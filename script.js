@@ -29,20 +29,14 @@ function generatePassword(){
   var choices = [isUsingNumbers,isUsingLowerCase,isUsingUpperCase,isUsingSpecialChar];
 
 
+
   // Count the number of groups of symbols that user has selected and store that value in a variable
   function countUserChoices(){
     var count_choices = 0;
-    if (isUsingNumbers){
-      count_choices+=1;
-    }
-    if (isUsingLowerCase){
-      count_choices+=1;
-    }
-    if (isUsingUpperCase) {
-      count_choices+=1;
-    }
-    if (isUsingUpperCase) {
-      count_choices+=1;
+    for (i=0;i<choices.length-1;i++){
+      if (choices[i]){
+        count_choices+=1;
+      }
     }
     return count_choices;
   }
@@ -67,39 +61,36 @@ function generatePassword(){
     console.log(selection);
     return selection.join("");
   }
-
-
-  var password_list = "";
+  
+  // Create collection of selections and respective groups of symbols
+  var choiceSymbolGroupPair = {
+    isUsingNumbers: numbers,
+    isUsingLowerCase: letters_lower_case,
+    isUsingUpperCase: letters_upper_case,
+    isUsingSpecialChar: chars
+  };
+  
   // For every selected group of symbols, call the function that randomly selects the symbols and append them to a password list.
   // Additionally, add the symbols from the selected group to a global list of symbols
-  var globalCombinedListOfElements = [];
-  if (isUsingNumbers){
-    password_list += getElementFromGroup(numbers);
-    globalCombinedListOfElements = [...globalCombinedListOfElements,...numbers];
+  function createPassword(){
+    var password_list = "";
+    var globalCombinedListOfElements = [];
+    for (const [key, value] of Object.entries(choiceSymbolGroupPair)){
+      if (key) {
+        password_list+= getElementFromGroup(value);
+        globalCombinedListOfElements = [...globalCombinedListOfElements,...value];
+      }
+    }
+    while (password_list.length < passwordLength){
+      password_list += globalCombinedListOfElements[Math.floor(Math.random()*globalCombinedListOfElements.length)];
+    }
+    return password_list
   }
-  if (isUsingLowerCase){
-    password_list += getElementFromGroup(letters_lower_case);
-    globalCombinedListOfElements = [...globalCombinedListOfElements,...letters_lower_case];
-  }
-  if (isUsingUpperCase){
-    password_list += getElementFromGroup(letters_upper_case);
-    globalCombinedListOfElements = [...globalCombinedListOfElements,...letters_upper_case];
-  }
-  if (isUsingSpecialChar){
-    password_list += getElementFromGroup(chars);
-    globalCombinedListOfElements = [...globalCombinedListOfElements,...chars];
-  }
-  // console.log(password_list);
+  var createdPassword = createPassword();
 
-  // For odd value of the password length, add symbols to the password from the global list of symbols to mathc the
-  // user-selected length of the password 
-  while (password_list.length < passwordLength){
-    password_list += globalCombinedListOfElements[Math.floor(Math.random()*globalCombinedListOfElements.length)];
-  }
-  
+   
   // Shuffle the symbols in the final version of the password
-  var password = password_list.split('').sort(function(){return 0.5-Math.random()}).join('');
-  
+  var password = createdPassword.split('').sort(function(){return 0.5-Math.random()}).join('');
 
   return password;
 
